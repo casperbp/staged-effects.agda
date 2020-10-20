@@ -118,6 +118,15 @@ module _ where
     id-Modular : Modular id
     Modular.fwd id-Modular a k = k a
 
+    Prod-Modular : ∀ {H} → Modular (H ×_)
+    Modular.fwd Prod-Modular (h , a) k with (k a)
+    ... | leaf x               = leaf (h , proj₂ x)
+    ... | node c (_ , l) st k₁ = node c (h , l) st k₁
+
+    Maybe-Modular : Modular Maybe
+    Modular.fwd Maybe-Modular nothing k = leaf nothing
+    Modular.fwd Maybe-Modular (just a) k = k a
+
   open Modular ⦃ ... ⦄
 
   {-# TERMINATING #-}
