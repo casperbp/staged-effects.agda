@@ -120,7 +120,7 @@ module _ where
 
     Prod-Modular : ∀ {H} → Modular (H ×_)
     Modular.fwd Prod-Modular (h , a) k with (k a)
-    ... | leaf x               = leaf (h , proj₂ x)
+    ... | leaf (_ , x)         = leaf (h , x)
     ... | node c (_ , l) st k₁ = node c (h , l) st k₁
 
     Maybe-Modular : Modular Maybe
